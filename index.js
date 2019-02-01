@@ -2,7 +2,7 @@ var http = require('http');
 
 var server = http.createServer(function(request, response) {
 
-     console.log(request.body.queryResult);
+    // console.log(request.body.queryResult);
     response.writeHead(400, {"Content-Type": "application/json"});
     let responseObj ={
         "fulfillmentText" : " ",
