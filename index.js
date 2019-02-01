@@ -2,8 +2,13 @@ var http = require('http');
 
 var server = http.createServer(function(request, response) {
 
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Hello World!  Welcome to Pristine Pi");
+    response.writeHead(200, {"Content-Type": "application/json"});
+    let responseObj ={
+        "fulfillmentText" : " ",
+        "fulfillmentMessages" : [ { "test" : {"text" : ["Hello Hemant! How are you?"]}}]
+
+    }
+    response.write(responseObj);
 
 });
 
