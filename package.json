@@ -4,8 +4,7 @@
   "description": "first demo app",
   "main": "index.js",
   "scripts": {
-    
-      "start": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/hekumar/pi/issues"
   },
-  "homepage": "https://github.com/hekumar/pi#readme"
+  "homepage": "https://github.com/hekumar/pi#readme",
+  "dependencies": {
+    "dialogflow-fulfillment": "^0.6.1"
+  }
 }

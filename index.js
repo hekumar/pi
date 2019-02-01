@@ -1,59 +1,23 @@
 var http = require('http');
+//const { WebhookClient } = require('dialogflow-fulfillment');
+
+ //Create an instance
+ //const agent = new WebhookClient({request: request, response: response});
 
 var server = http.createServer(function(request, response) {
 
-    // console.log(request.body.queryResult);
+    console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
+
+    console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
+   
+
     response.writeHead(200, {"Content-Type": "application/json"});
-    let responseObj ={
-        "fulfillmentText": "This is a text response",
-        "fulfillmentMessages": [
-            {
-              "text": {
-                "text": [
-                  "Hello pi !"
-                ]
-              }
-            }
-          ],
-        "source": "example.com",
-        "payload": {
-          "google": {
-            "expectUserResponse": true,
-            "richResponse": {
-              "items": [
-                {
-                  "simpleResponse": {
-                    "textToSpeech": "this is a simple response"
-                  }
-                }
-              ]
-            }
-          },
-          "facebook": {
-            "text": "Hello, Facebook!"
-          },
-          "slack": {
-            "text": "This is a text response for Slack."
-          }
-        },
-        "outputContexts": [
-          {
-            "name": "pristinepi",
-            "lifespanCount": 5,
-            "parameters": {
-              "param": "param value"
-            }
-          }
-        ],
-        "followupEventInput": {
-          "name": "event name",
-          "languageCode": "en-US",
-          "parameters": {
-            "param": "param value"
-          }
-        }
-      };
-    response.end(JSON.stringify(responseObj));
+    
+   // response.end(JSON.stringify(responseObj));
+   response.send(JSON.stringify({
+    "speech" : "welcome to pi world",
+    "displayText" : "welcome heman !"
+})); 
 
 });
 
