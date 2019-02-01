@@ -7,20 +7,14 @@ var server = http.createServer(function(request, response) {
     let responseObj ={
         "fulfillmentText": "This is a text response",
         "fulfillmentMessages": [
-          {
-            "card": {
-              "title": "card title",
-              "subtitle": "card text",
-             // "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
-              "buttons": [
-                {
-                  "text": "button text",
-             //     "postback": "https://assistant.google.com/"
-                }
-              ]
+            {
+              "text": {
+                "text": [
+                  "Hello pi !"
+                ]
+              }
             }
-          }
-        ],
+          ],
         "source": "example.com",
         "payload": {
           "google": {
