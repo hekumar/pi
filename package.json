@@ -1,0 +1,19 @@
+{
+  "name": "my-pi",
+  "version": "1.0.0",
+  "description": "first demo app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hekumar/pi.git"
+  },
+  "author": "hekumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hekumar/pi/issues"
+  },
+  "homepage": "https://github.com/hekumar/pi#readme"
+}
