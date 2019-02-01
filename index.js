@@ -15,9 +15,21 @@ var server = http.createServer(function(request, response) {
     
    // response.end(JSON.stringify(responseObj));
    response.end(JSON.stringify({
-    "speech" : "welcome to pi world",
-    "displayText" : "welcome heman !"
-})); 
+    "payload": {
+      "google": {
+        "expectUserResponse": true,
+        "richResponse": {
+          "items": [
+            {
+              "simpleResponse": {
+                "textToSpeech": "this is a simple response"
+              }
+            }
+          ]
+        }
+      }
+    }
+  })); 
 
 });
 
