@@ -8,7 +8,7 @@ var server = http.createServer(function(request, response) {
         "fulfillmentMessages" : [ { "test" : {"text" : ["Hello Hemant! How are you?"]}}]
 
     }
-    response.write(responseObj);
+    response.end(JSON.stringify(responseObj));
 
 });
 
