@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/hekumar/pi#readme",
   "dependencies": {
-    "dialogflow-fulfillment": "^0.6.1"
+    "dialogflow-fulfillment": "^0.6.1",
+    "express": "^4.16.4"
   }
 }

@@ -1,18 +1,25 @@
 var http = require('http');
+var express = require('express');
 
+const app = express()
 
-var server = http.createServer(function(request, response) {
-
-  
-
-    response.writeHead(200, {"Content-Type": "application/json"});
-    
-   // response.end(JSON.stringify(responseObj));
-   response.end(JSON.stringify({"fulfillmentText": "hello how are you?"})); 
-
+app.get('/', (req, res) => {
+    res.send("courses");
 });
 
+app.post('/pi', (req, res) => {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ "fulfillmentText": "welcome to pi app" }));
+});
+
+app.post('/hi', (req, res) => {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ "fulfillmentText": "Hello Hemant!" }));
+});
+
+
+
 var port = process.env.PORT || 1337;
-server.listen(port);
+app.listen(port);
 
 console.log("Server running at http://localhost:%d", port);
