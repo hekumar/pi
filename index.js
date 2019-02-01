@@ -14,7 +14,7 @@ var server = http.createServer(function(request, response) {
     response.writeHead(200, {"Content-Type": "application/json"});
     
    // response.end(JSON.stringify(responseObj));
-   response.send(JSON.stringify({
+   response.end(JSON.stringify({
     "speech" : "welcome to pi world",
     "displayText" : "welcome heman !"
 })); 
