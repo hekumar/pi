@@ -2,10 +2,19 @@ var http = require('http');
 
 var server = http.createServer(function(request, response) {
 
-    response.writeHead(200, {"Content-Type": "application/json"});
+     console.log(request.body.queryResult);
+    response.writeHead(400, {"Content-Type": "application/json"});
     let responseObj ={
         "fulfillmentText" : " ",
-        "fulfillmentMessages" : [ { "test" : {"text" : ["Hello Hemant! How are you?"]}}],
+        "fulfillmentMessages": [
+            {
+              "text": {
+                "text": [
+                    "Hello Hemant! How are you?"
+                ]
+              }
+            }
+          ],
         "source" : ""
 
     }
