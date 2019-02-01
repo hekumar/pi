@@ -1,15 +1,13 @@
-var http = require("http");
+var http = require('http');
 
+var server = http.createServer(function(request, response) {
 
-http.createServer(function (request, response) {
-   // Send the HTTP header 
-   // HTTP Status: 200 : OK
-   // Content Type: text/plain
-   response.writeHead(200, {'Content-Type': 'text/plain'});
-   
-   // Send the response body as "Hello World"
-   response.end('Hello World\n');
-}).listen(8081);
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.end("Hello World!");
 
-// Console will print the message
-console.log('Server running at localhost...');
+});
+
+var port = process.env.PORT || 1337;
+server.listen(port);
+
+console.log("Server running at http://localhost:%d", port);
