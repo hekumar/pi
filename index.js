@@ -1,7 +1,14 @@
 var http = require('http');
 var express = require('express');
 
+var bodyParser = require('body-parser')
+
 const app = express()
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
     res.send("courses");
@@ -9,11 +16,38 @@ app.get('/', (req, res) => {
 
 app.post('/pi', (req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
-    let options = {
-        url : "http://localhost:8080/",
-        body : { re : req}
-    }
-   http.post(options); 
+    var x = JSON.parse(JSON.stringify(req.body));
+
+    let result ='';
+    result = x.queryResult.queryText;
+   if( result.indexOf("talk")> -1 && result.indexOf("pi")> -1){
+     res.end("Talk to pi ");
+
+     const options = {
+        hostname: 'localhost',
+        port: 8080,
+        path: '/pi',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': data.length
+        },
+        body: {
+            command: "on"
+        }
+
+      }
+      
+      const req = https.request(options, (res) => {
+        console.log(`statusCode: ${res.statusCode}`)
+      
+        res.on('data', (d) => {
+          process.stdout.write(d)
+        });
+      });
+
+   }
+   
     res.end(JSON.stringify({ "fulfillmentText": "welcome to pi app" }));
 });
 
