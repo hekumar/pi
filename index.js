@@ -9,10 +9,11 @@ app.get('/', (req, res) => {
 
 app.post('/pi', (req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
-    console.log(req.body);
-    var query = req.body.queryResult.parameters.any;
-    alert(query);
-    
+    let options = {
+        url : "http://localhost:8080/",
+        body : { re : req}
+    }
+   http.post(options); 
     res.end(JSON.stringify({ "fulfillmentText": "welcome to pi app" }));
 });
 
