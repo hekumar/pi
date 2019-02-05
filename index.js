@@ -21,7 +21,7 @@ app.post('/pi', (req, res) => {
     let result ='';
     result = x.queryResult.queryText;
    if( result.indexOf("talk")> -1 && result.indexOf("pi")> -1){
-     res.end("Talk to pi ");
+    
 
      const options = {
         hostname: 'localhost',
@@ -39,10 +39,12 @@ app.post('/pi', (req, res) => {
       }
       
       const req = https.request(options, (res) => {
-        console.log(`statusCode: ${res.statusCode}`)
+        console.log(`statusCode: ${res.statusCode}`);
+        
       
         res.on('data', (d) => {
           process.stdout.write(d)
+          res.end("Talk to pi " +d);
         });
       });
 
