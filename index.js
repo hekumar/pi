@@ -6,9 +6,19 @@ var bodyParser = require('body-parser')
 const app = express()
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
- 
+
 // parse application/json
 app.use(bodyParser.json())
+
+// publish-subscribe iot data
+var pubnub = require('pubnub').init({
+
+    publish_key: "pub-c-2d98e188-d8e8-46fb-a165-10fbee0525cb", // Use your pub key
+
+    subscribe_key: 'sub-c-b3f3f9b6-2a0b-11e9-934b-52f171d577c7' // Use your sub key
+
+});
+
 
 app.get('/', (req, res) => {
     res.send("courses");
@@ -18,45 +28,47 @@ app.post('/pi', (req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     var x = JSON.parse(JSON.stringify(req.body));
 
-    let result ='';
+    let result = '';
     result = x.queryResult.queryText;
-   if( result.indexOf("talk")> -1 && result.indexOf("pi")> -1){
-    
-    var post_data = JSON.stringify({
-        'compilation_level' : 'ADVANCED_OPTIMIZATIONS',
-        'output_format': 'json',
-        'output_info': 'compiled_code',
-          'warning_level' : 'QUIET',
-          'js_code' : "codestring"
-    });
+    if (result.indexOf("talk") > -1 && result.indexOf("pi") > -1) {
+        // Publish a simple message to the demo_tutorial channel
+
+        pubnubDemo.publish({
+            message: {
+                "command": "welcome to pi app"
+            },
+            channel: 'my-pi'
+        });
+
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ "fulfillmentText": "talking to pi please wait..." }));
+    }
+    else if(result.indexOf("on") > -1 && result.indexOf("led") > -1) {
+
+        pubnubDemo.publish({
+            message: {
+                "command": "led on"
+            },
+            channel: 'my-pi'
+        });
+
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ "fulfillmentText": "talking to pi please wait..." }));
+    }
+
+    else if(result.indexOf("off") > -1 && result.indexOf("led") > -1) {
+
+        pubnubDemo.publish({
+            message: {
+                "command": "led off"
+            },
+            channel: 'my-pi'
+        });
+    }else {
+        res.end(JSON.stringify({ "fulfillmentText": "pi don't know that." }));
+    }
+
   
-    // An object of options to indicate where to post to
-    var post_options = {
-        host: 'localhost',
-        port: '8080',
-        path: '/pi',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': Buffer.byteLength(post_data)
-        }
-    };
-     // Set up the request
-  var post_req = http.request(post_options, function(res) {
-    res.setEncoding('utf8');
-    res.on('data', function (chunk) {
-        console.log('Response: ' + chunk);
-    });
-});
-
-// post the data
-console.log();
-post_req.write(post_data);
-post_req.end();
-
-   }
-   
-    res.end(JSON.stringify({ "fulfillmentText": "welcome to pi app" }));
 });
 
 app.post('/hi', (req, res) => {
