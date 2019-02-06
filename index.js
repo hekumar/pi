@@ -1,6 +1,6 @@
 var http = require('http');
 var express = require('express');
-
+const PubNub = require("pubnub");
 var bodyParser = require('body-parser')
 
 const app = express()
@@ -10,15 +10,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-// publish-subscribe iot data
-var pubnub = require('pubnub').init({
+const pubnubDemo = new PubNub({
 
-    publish_key: "pub-c-2d98e188-d8e8-46fb-a165-10fbee0525cb", // Use your pub key
-
-    subscribe_key: 'sub-c-b3f3f9b6-2a0b-11e9-934b-52f171d577c7' // Use your sub key
-
-});
-
+    publishKey: "pub-c-2d98e188-d8e8-46fb-a165-10fbee0525cb", // Use your pub key
+    subscribeKey: 'sub-c-b3f3f9b6-2a0b-11e9-934b-52f171d577c7' // Use your sub key
+  
+  });
 
 app.get('/', (req, res) => {
     res.send("courses");
@@ -40,7 +37,7 @@ app.post('/pi', (req, res) => {
             channel: 'my-pi'
         });
 
-        res.writeHead(200, { "Content-Type": "application/json" });
+      
         res.end(JSON.stringify({ "fulfillmentText": "talking to pi please wait..." }));
     }
     else if(result.indexOf("on") > -1 && result.indexOf("led") > -1) {
@@ -52,7 +49,7 @@ app.post('/pi', (req, res) => {
             channel: 'my-pi'
         });
 
-        res.writeHead(200, { "Content-Type": "application/json" });
+      
         res.end(JSON.stringify({ "fulfillmentText": "talking to pi please wait..." }));
     }
 
@@ -64,7 +61,8 @@ app.post('/pi', (req, res) => {
             },
             channel: 'my-pi'
         });
-    }else {
+    }
+    else {
         res.end(JSON.stringify({ "fulfillmentText": "pi don't know that." }));
     }
 
