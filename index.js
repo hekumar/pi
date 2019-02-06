@@ -22,31 +22,37 @@ app.post('/pi', (req, res) => {
     result = x.queryResult.queryText;
    if( result.indexOf("talk")> -1 && result.indexOf("pi")> -1){
     
-
-     const options = {
-        hostname: 'localhost:8080',
-        port: 8080,
+    var post_data = JSON.stringify({
+        'compilation_level' : 'ADVANCED_OPTIMIZATIONS',
+        'output_format': 'json',
+        'output_info': 'compiled_code',
+          'warning_level' : 'QUIET',
+          'js_code' : "codestring"
+    });
+  
+    // An object of options to indicate where to post to
+    var post_options = {
+        host: 'localhost',
+        port: '8080',
         path: '/pi',
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': data.length
-        },
-        body: {
-            command: "on"
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(post_data)
         }
+    };
+     // Set up the request
+  var post_req = http.request(post_options, function(res) {
+    res.setEncoding('utf8');
+    res.on('data', function (chunk) {
+        console.log('Response: ' + chunk);
+    });
+});
 
-      }
-      
-      const req = http.request(options, (res) => {
-        console.log(`statusCode: ${res.statusCode}`);
-        
-      
-      
-          process.stdout.write(d)
-          res.end("Talk to pi " +d);
-       
-      });
+// post the data
+console.log();
+post_req.write(post_data);
+post_req.end();
 
    }
    
