@@ -38,7 +38,7 @@ app.post('/pi', (req, res) => {
         });
 
       
-        res.end(JSON.stringify({ "fulfillmentText": "talking to pi please wait..." }));
+        res.end(JSON.stringify({ "fulfillmentText": "getting ready.." }));
     }
     else if(result.indexOf("on") > -1 && result.indexOf("led") > -1) {
 
@@ -50,7 +50,7 @@ app.post('/pi', (req, res) => {
         });
 
       
-        res.end(JSON.stringify({ "fulfillmentText": "talking to pi please wait..." }));
+        res.end(JSON.stringify({ "fulfillmentText": "turning led on please wait..." }));
     }
 
     else if(result.indexOf("off") > -1 && result.indexOf("led") > -1) {
@@ -61,6 +61,8 @@ app.post('/pi', (req, res) => {
             },
             channel: 'my-pi'
         });
+
+        res.end(JSON.stringify({ "fulfillmentText": "turning led off please wait..." }));
     }
     else {
         res.end(JSON.stringify({ "fulfillmentText": "pi don't know that." }));
