@@ -40,7 +40,7 @@ app.post('/pi', (req, res) => {
       
         res.end(JSON.stringify({ "fulfillmentText": "getting ready.." }));
     }
-    else if(result.indexOf("on") > -1 && result.indexOf("led") > -1 || result.indexOf("LED") > -1 || result.indexOf("light") > -1) {
+    else if(result.indexOf("on") > -1 && (result.indexOf("led") > -1 || result.indexOf("LED") > -1 || result.indexOf("light") > -1)) {
 
         pubnubDemo.publish({
             message: {
@@ -53,7 +53,7 @@ app.post('/pi', (req, res) => {
         res.end(JSON.stringify({ "fulfillmentText": "turning led on please wait..." }));
     }
 
-    else if(result.indexOf("off") > -1 && result.indexOf("led") > -1 || result.indexOf("LED") > -1 || result.indexOf("light") > -1) {
+    else if(result.indexOf("off") > -1 && result.indexOf("led") > -1 || (result.indexOf("LED") > -1 || result.indexOf("light") > -1)) {
 
         pubnubDemo.publish({
             message: {
